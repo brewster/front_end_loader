@@ -8,9 +8,6 @@
 ## <a name="usage"></a>Use
 
 ## <a name="documentation"></a>Learn
-[http://rdoc.info/github/aub/tumble][documentation]
-
-[documentation]: http://rdoc.info/github/aub/tumble
 
 ## <a name="copyright"></a>Copyright
 Copyright (c) 2012 Aubrey Holland
