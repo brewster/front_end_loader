@@ -12,11 +12,16 @@ Gem::Specification.new do |s|
   s.email    = 'aubreyholland@gmail.com'
   s.homepage = 'https://github.com/brewster/front_end_loader'
 
+  s.add_dependency 'multi_json'
   s.add_dependency 'patron'
 
   # = MANIFEST =
   s.files = %w[
-
+    Gemfile
+    README.md
+    Rakefile
+    front_end_loader.gemspec
+    lib/front_end_loader.rb
   ]
   # = MANIFEST =
 
