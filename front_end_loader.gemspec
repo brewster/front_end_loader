@@ -21,6 +21,10 @@ Gem::Specification.new do |s|
     Rakefile
     front_end_loader.gemspec
     lib/front_end_loader.rb
+    lib/front_end_loader/experiment.rb
+    lib/front_end_loader/request.rb
+    lib/front_end_loader/request_manager.rb
+    lib/front_end_loader/screen.rb
   ]
   # = MANIFEST =
 
