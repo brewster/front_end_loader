@@ -146,7 +146,7 @@ module FrontEndLoader
         @mutex.synchronize do
           @call_times[name] += time
           @call_max_times[name] = time if time > @call_max_times[name]
-          unless response.status >= 200 && response.status < 300
+          unless response.status >= 200 && response.status < 400
             write_debug(response.body)
             @call_error_counts[name] += 1
             @error_counts_by_type[response.status] += 1
