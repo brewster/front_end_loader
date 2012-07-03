@@ -38,6 +38,7 @@ module FrontEndLoader
       if @debug_file
         @debug_mutex.synchronize do
           @debug_file.puts(data)
+          @debug_file.flush
         end
       end
     end
@@ -125,6 +126,7 @@ module FrontEndLoader
       Patron::Session.new.tap do |session|
         session.base_url = domain
         session.insecure = true
+        session.max_redirects = 0
         if basic_auth_enabled
           session.auth_type = :basic
           session.username = basic_auth_user
@@ -145,7 +147,7 @@ module FrontEndLoader
           @call_times[name] += time
           @call_max_times[name] = time if time > @call_max_times[name]
           unless response.status >= 200 && response.status < 300
-            @debug_file.puts(response.body)
+            write_debug(response.body)
             @call_error_counts[name] += 1
             @error_counts_by_type[response.status] += 1
           end
