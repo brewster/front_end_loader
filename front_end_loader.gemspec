@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.5") if s.respond_to? :required_rubygems_version=
 
   s.name    = 'front_end_loader'
-  s.version = '0.1.3'
+  s.version = '0.1.4'
 
   s.summary     = 'A framework for load testing in ruby'
   # TODO: s.description
