@@ -21,6 +21,7 @@ module FrontEndLoader
       @mutex = Mutex.new
       @debug_mutex = Mutex.new
       @loop_count = -1
+      @paused = false
       clear_data
     end
 
@@ -89,17 +90,25 @@ module FrontEndLoader
         Thread.new(self, @request_block) do |experiment, request_block|
           loops_left = experiment.loop_count
           while(loops_left != 0)
-            request_manager = RequestManager.new(experiment, experiment.http_session)
-            request_block.call(request_manager)
-            loops_left -= 1
+            if experiment.paused?
+              sleep(0.25)
+            else
+              request_manager = RequestManager.new(experiment, experiment.http_session)
+              request_block.call(request_manager)
+              loops_left -= 1
+            end
           end
         end
       end
 
       threads << Thread.new(self) do |experiment|
         while (true)
-          experiment.screen.refresh
-          sleep(0.1)
+          if experiment.paused?
+            sleep(0.25)
+          else
+            experiment.screen.refresh
+            sleep(0.1)
+          end
         end
       end
 
@@ -108,6 +117,10 @@ module FrontEndLoader
           ch = Curses.getch
           if ch == 'c'
             experiment.clear_data
+          elsif ch == 'p'
+            experiment.pause
+          elsif ch == 's'
+            experiment.go
           end
         end
       end
@@ -136,6 +149,18 @@ module FrontEndLoader
         end
         session.enable_debug "/tmp/patron.debug"
       end
+    end
+
+    def paused?
+      @paused
+    end
+
+    def pause
+      @paused = true
+    end
+
+    def go
+      @paused = false
     end
 
     def time_call(name, &block)
