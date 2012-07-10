@@ -88,4 +88,4 @@ This display accepts the following keyboard controls:
 
 ## <a name="copyright"></a>Copyright
 Copyright (c) 2012 Aubrey Holland
-See [LICENSE][https://github.com/brewster/front_end_loader/blob/master/LICENSE] for details.
+See [LICENSE](https://github.com/brewster/front_end_loader/blob/master/LICENSE) for details.
