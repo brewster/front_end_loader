@@ -3,11 +3,14 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 1.3.5") if s.respond_to? :required_rubygems_version=
 
   s.name    = 'front_end_loader'
-  s.version = '0.1.4'
+  s.version = '0.1.5'
 
-  s.summary     = 'A framework for load testing in ruby'
-  # TODO: s.description
-
+  s.summary     = 'A framework for doing declarative load testing in ruby'
+  s.description = <<-EOF
+Front End Loader allows clients to declare load tests using a pure-Ruby DSL.
+This means that it is very simple to pass data between requests or to interact
+with your systems in dynamic, complex ways.
+EOF
   s.authors  = ['Aubrey Holland']
   s.email    = 'aubreyholland@gmail.com'
   s.homepage = 'https://github.com/brewster/front_end_loader'
@@ -17,6 +20,7 @@ Gem::Specification.new do |s|
   # = MANIFEST =
   s.files = %w[
     Gemfile
+    LICENSE
     README.md
     Rakefile
     front_end_loader.gemspec
