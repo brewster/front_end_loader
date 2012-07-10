@@ -207,5 +207,16 @@ module FrontEndLoader
       Curses.curs_set(1)
       Curses::close_screen
     end
+
+    def write_debug(file)
+      (0..Curses.rows).each do |row|
+        (0..Curses.cols).each do |col|
+          Curses.setpos(row, col)
+          char = Curses.inch
+          file.write(char)
+        end
+        file.write("\n")
+      end
+    end
   end
 end

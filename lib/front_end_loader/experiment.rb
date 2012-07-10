@@ -44,6 +44,12 @@ module FrontEndLoader
       end
     end
 
+    def write_screen_to_debug
+      @debug_mutex.synchronize do
+        @screen.write_debug(@debug_file)
+      end
+    end
+
     def clear_data
       @mutex.synchronize do
         @call_counts ||= Hash.new { |h,k| h[k] = 0 }
@@ -117,9 +123,12 @@ module FrontEndLoader
           ch = Curses.getch
           if ch == 'c'
             experiment.clear_data
+          elsif ch == 'd'
+            experiment.write_screen_to_debug
           elsif ch == 'p'
             experiment.pause
           elsif ch == 's'
+            experiment.clear_data
             experiment.go
           end
         end

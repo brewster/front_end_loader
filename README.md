@@ -83,6 +83,7 @@ Excuting an experiment will produce output like this:
 This display accepts the following keyboard controls:
 
 * c - reset the data
+* d - write the contents of the screen to the debug file
 * p - pause the scripts, so the data will remain static and no requests will be made
 * s - start the scripts again when paused
 
