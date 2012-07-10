@@ -25,6 +25,7 @@ experiment = FrontEndLoader::Experiment.new.tap do |e|
   e.debug = '/tmp/front_end_loader.txt'
 
   e.requests do |r|
+    ...
   end
 end
 
@@ -34,7 +35,7 @@ experiment.run
 This block declares an experiment that:
 
 * simulates 20 users simultaneously interacting with the system
-* execute the request script five times per user before exiting. You can specify infinite loops by either not calling loop_count or passing -1
+* executes the request script five times per user before exiting. You can specify infinite loops by either not calling loop_count or passing -1
 * will operate against the brewster.com domain
 * uses http basic auth
 * passes a default parameter of _subdomain to each request, and
@@ -42,7 +43,7 @@ This block declares an experiment that:
 
 It then runs the experiment, which causes the requests to start flowing and output to be displayed
 on the screen. The requests method on the experiment is where you will define the script to be run
-loop_count times for each of the simulated users.
+loop_count times for each of the simulated users:
 
 ```ruby
   e.requests do |r|
@@ -87,6 +88,4 @@ This display accepts the following keyboard controls:
 
 ## <a name="copyright"></a>Copyright
 Copyright (c) 2012 Aubrey Holland
-See [LICENSE][] for details.
-
-[license]: https://github.com/brewster/front_end_loader/blob/master/LICENSE.md
+See [LICENSE][https://github.com/brewster/front_end_loader/blob/master/LICENSE] for details.
