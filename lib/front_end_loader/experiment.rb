@@ -98,6 +98,8 @@ module FrontEndLoader
           while(loops_left != 0)
             if experiment.paused?
               sleep(0.25)
+            elsif experiment.quitting?
+              loops_left = 0
             else
               request_manager = RequestManager.new(experiment, experiment.http_session)
               request_block.call(request_manager)
@@ -108,7 +110,7 @@ module FrontEndLoader
       end
 
       threads << Thread.new(self) do |experiment|
-        while (true)
+        while (!experiment.quitting?)
           if experiment.paused?
             sleep(0.25)
           else
@@ -119,7 +121,7 @@ module FrontEndLoader
       end
 
       threads << Thread.new(self) do |experiment|
-        while (true)
+        while (!experiment.quitting?)
           ch = Curses.getch
           if ch == 'c'
             experiment.clear_data
@@ -127,6 +129,8 @@ module FrontEndLoader
             experiment.write_screen_to_debug
           elsif ch == 'p'
             experiment.pause
+          elsif ch == 'q'
+            experiment.quit
           elsif ch == 's'
             experiment.clear_data
             experiment.go
@@ -156,7 +160,6 @@ module FrontEndLoader
           session.connect_timeout = 10
           session.timeout = 500
         end
-        session.enable_debug "/tmp/patron.debug"
       end
     end
 
@@ -170,6 +173,14 @@ module FrontEndLoader
 
     def go
       @paused = false
+    end
+
+    def quitting?
+      @quitting
+    end
+
+    def quit
+      @quitting = true
     end
 
     def time_call(name, &block)

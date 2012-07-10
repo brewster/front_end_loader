@@ -209,14 +209,18 @@ module FrontEndLoader
     end
 
     def write_debug(file)
-      (0..Curses.rows).each do |row|
+      (0..Curses.lines).each do |line|
+        line_string = ''
         (0..Curses.cols).each do |col|
-          Curses.setpos(row, col)
-          char = Curses.inch
-          file.write(char)
+          Curses.setpos(line, col)
+          line_string << Curses.inch.chr
         end
-        file.write("\n")
+        line_string.strip!
+        unless line_string.empty?
+          file.puts(line_string)
+        end
       end
+      file.flush
     end
   end
 end
