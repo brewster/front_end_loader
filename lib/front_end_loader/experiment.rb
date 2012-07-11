@@ -32,7 +32,7 @@ module FrontEndLoader
     end
 
     def debug=(file)
-      @debug_file = File.open(file, 'w')
+      @debug_file = File.open(file, 'a')
     end
 
     def write_debug(data)
@@ -45,8 +45,10 @@ module FrontEndLoader
     end
 
     def write_screen_to_debug
-      @debug_mutex.synchronize do
-        @screen.write_debug(@debug_file)
+      if @debug_file
+        @debug_mutex.synchronize do
+          @screen.write_debug(@debug_file)
+        end
       end
     end
 

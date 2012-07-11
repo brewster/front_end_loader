@@ -78,7 +78,27 @@ of the script will be run in order and will not affect other iterations that may
 Excuting an experiment will produce output like this:
 
 ```
+------------------------------------------------------------------------------------------------------
+| call                           | count    | avg time | max time | errors   | error %  | throughput  |
+------------------------------------------------------------------------------------------------------
+| profile                        | 40       | 0.252    | 0.731    | 0        | 0.0      | 140         |
+| random search                  | 40       | 0.275    | 0.491    | 0        | 0.0      | 140         |
+| filtered_search                | 40       | 0.28     | 0.67     | 0        | 0.0      | 140         |
+| suggestions                    | 40       | 0.264    | 0.624    | 0        | 0.0      | 140         |
+| autocomplete                   | 38       | 0.234    | 0.456    | 0        | 0.0      | 133         |
+| filtered autocomplete          | 37       | 0.204    | 0.323    | 0        | 0.0      | 130         |
+| services                       | 37       | 0.203    | 0.476    | 0        | 0.0      | 130         |
+| service types                  | 37       | 0.185    | 0.456    | 0        | 0.0      | 130         |
+| me                             | 36       | 0.25     | 0.555    | 0        | 0.0      | 126         |
+|                                |          |          |          |          |          |             |
+| TOTAL                          | 345      | 0.238    | 0.731    | 0        | 0.0      | 1209        |
+------------------------------------------------------------------------------------------------------
+run time: 0:00:17
 ```
+
+Throughput is measured in requests per minute and note that because each "user" is running though the script
+in series, the throughput for an individual request is not as high as you would expect by running only that request
+over and over again.
 
 This display accepts the following keyboard controls:
 

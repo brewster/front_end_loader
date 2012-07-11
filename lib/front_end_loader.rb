@@ -6,5 +6,5 @@ require 'uri'
 end
 
 module FrontEndLoader
-  VERSION = '0.2.1'
+  VERSION = '0.2.2'
 end
