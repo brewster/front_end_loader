@@ -109,5 +109,5 @@ This display accepts the following keyboard controls:
 * s - start the scripts again when paused
 
 ## <a name="copyright"></a>Copyright
-Copyright (c) 2012 Aubrey Holland
+Copyright (c) 2011-2012 Brewster Inc., Aubrey Holland
 See [LICENSE](https://github.com/brewster/front_end_loader/blob/master/LICENSE) for details.
