@@ -10,6 +10,7 @@ module FrontEndLoader
     attr_reader :screen
 
     attr_reader :run_start_time
+    attr_reader :run_completed_time
     attr_reader :running
     attr_reader :call_times
     attr_reader :call_error_counts
@@ -22,6 +23,7 @@ module FrontEndLoader
       @debug_mutex = Mutex.new
       @loop_count = -1
       @paused = false
+      @run_completed_time = nil
       clear_data
     end
 
@@ -90,6 +92,10 @@ module FrontEndLoader
       @request_block = block
     end
 
+    def run_completed!
+      @run_completed_time = Time.now
+    end
+
     def run
       @running = true
       @run_start_time = Time.now
@@ -108,6 +114,7 @@ module FrontEndLoader
               loops_left -= 1
             end
           end
+          experiment.run_completed!
         end
       end
 
@@ -260,7 +267,7 @@ module FrontEndLoader
     end
 
     def throughput
-      delta = (Time.now - @run_start_time) / 60.0
+      delta = ((@run_completed_time || Time.now) - @run_start_time) / 60.0
       @call_counts.keys.inject({}) do |hash, name|
         hash[name] = @call_counts[name].to_f / delta
         hash

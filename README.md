@@ -19,9 +19,9 @@ require 'front_end_loader'
 experiment = FrontEndLoader::Experiment.new.tap do |e|
   e.user_count = 20
   e.loop_count = 5
-  e.domain = 'https://www.brewster.com'
+  e.domain = 'https://www.google.com'
   e.basic_auth('unreal_login', 'unreal_password')
-  e.default_parameters = { '_subdomain' => 'api' }
+  e.default_parameters = { 'unnecessary' => 'true' }
   e.debug = '/tmp/front_end_loader.txt'
 
   e.requests do |r|
@@ -36,9 +36,9 @@ This block declares an experiment that:
 
 * simulates 20 users simultaneously interacting with the system
 * executes the request script five times per user before exiting. You can specify infinite loops by either not calling loop_count or passing -1
-* will operate against the brewster.com domain
+* will operate against the google.com domain
 * uses http basic auth
-* passes a default parameter of _subdomain to each request, and
+* passes a default parameter of unnecessary to each request, and
 * writes debugging output to /tmp/front_end_loader.txt
 
 It then runs the experiment, which causes the requests to start flowing and output to be displayed
@@ -48,17 +48,25 @@ loop_count times for each of the simulated users:
 ```ruby
   e.requests do |r|
 
-    contact_id = nil
+   word = nil
 
-    r.get('contacts', '/v0/search', :page => rand(15) + 1, :per_page => 30) do |response|
-      parsed = Yajl::Parser.parse(response.body)
-      contacts = parsed['contacts']
-      contact_id = contacts[rand(contacts.length)]['id']
+    r.get('test_search', '/search', :q => 'test') do |response|
+      word = response.body.
+        split(/\s/).
+        reject { |i| i.length < 3 || i.length > 10 }.
+        sort_by { rand }.
+        first
     end
 
-    r.get('profile', "/v0/contacts/#{contact_id}")
+    e.write_debug(word)
 
-    r.post('add to favorites', "/v0/contacts/#{contact_id}/favorite")
+    r.get('random_word_search', '/search', :q => word)
+
+    r.get('privacy_policy', '/intl/en/policies')
+
+    # r.post(...)
+    # r.put(...)
+    # r.delete(...)
   end
 ```
 

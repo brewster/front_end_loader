@@ -69,7 +69,7 @@ module FrontEndLoader
         total_time = @experiment.call_times.values.inject(0) { |s,i| s + i }
         total_errors = @experiment.call_error_counts.values.inject(0) { |s,i| s + i }
         max_max_time = @experiment.call_max_times.values.max.round(3).to_s
-        delta = (Time.now - @experiment.run_start_time) / 60.0
+        delta = ((@experiment.run_completed_time || Time.now) - @experiment.run_start_time) / 60.0
       end
 
       if names.count != @entry_count
