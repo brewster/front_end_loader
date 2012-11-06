@@ -4,6 +4,7 @@ module FrontEndLoader
     attr_accessor :user_count
     attr_accessor :loop_count
     attr_accessor :default_parameters
+    attr_accessor :default_headers
     attr_reader :basic_auth_enabled
     attr_reader :basic_auth_user
     attr_reader :basic_auth_password
