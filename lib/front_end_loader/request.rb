@@ -6,7 +6,10 @@ module FrontEndLoader
       @method = method
       @name = name
       @path = path
-      @params = URI.encode(@experiment.default_parameters.merge(params).map { |k,v| "#{k}=#{v}" }.join('&'))
+
+      param_hash = @experiment.default_parameters ? @experiment.default_parameters.merge(params) : params
+      @params = URI.encode(param_hash.map { |k,v| "#{k}=#{v}" }.join('&'))
+
       @data = data
       @response_block = response_block
     end
