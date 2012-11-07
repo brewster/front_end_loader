@@ -9,6 +9,10 @@ module FrontEndLoader
       Request.new(@experiment, @session, :get, name, path, params, nil, block).run
     end
 
+    def post_multipart(name, path, params = {}, data = "{}", files = nil, &block)
+      Request.new(@experiment, @session, :post_multipart, name, path, params, data, files, block).run
+    end
+
     def post(name, path, params={}, data="{}", &block)
       Request.new(@experiment, @session, :post, name, path, params, data, block).run
     end
