@@ -5,6 +5,7 @@ module FrontEndLoader
     attr_accessor :loop_count
     attr_accessor :default_parameters
     attr_accessor :default_headers
+    attr_accessor :timeout, :connect_timeout
     attr_reader :basic_auth_enabled
     attr_reader :basic_auth_user
     attr_reader :basic_auth_password
@@ -167,9 +168,9 @@ module FrontEndLoader
           session.auth_type = :basic
           session.username = basic_auth_user
           session.password = basic_auth_password
-          session.connect_timeout = 10
-          session.timeout = 500
         end
+        session.connect_timeout = connect_timeout || 10
+        session.timeout = timeout || 500
       end
     end
 
