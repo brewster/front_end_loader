@@ -103,24 +103,19 @@ module FrontEndLoader
 
       threads = (1..user_count).to_a.map do
         Thread.new(self, @request_block) do |experiment, request_block|
-          begin
-            loops_left = experiment.loop_count
-            while(loops_left != 0)
-              if experiment.paused?
-                sleep(0.25)
-              elsif experiment.quitting?
-                loops_left = 0
-              else
-                request_manager = RequestManager.new(experiment, experiment.http_session)
-                request_block.call(request_manager)
-                loops_left -= 1
-              end
+          loops_left = experiment.loop_count
+          while(loops_left != 0)
+            if experiment.paused?
+              sleep(0.25)
+            elsif experiment.quitting?
+              loops_left = 0
+            else
+              request_manager = RequestManager.new(experiment, experiment.http_session)
+              request_block.call(request_manager)
+              loops_left -= 1
             end
-            experiment.run_completed!
-          rescue Exception => e
-            puts $!.inspect, $@
-            raise e
           end
+          experiment.run_completed!
         end
       end
 
