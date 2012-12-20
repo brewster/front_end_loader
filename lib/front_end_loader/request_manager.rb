@@ -25,6 +25,14 @@ module FrontEndLoader
       Request.new(@experiment, @session, :delete, name, path, params, nil, block).run
     end
 
+        def propfind(name, path, params={}, &block)
+      Request.new(@experiment, @session, :propfind, name, path, params, nil, block).run
+    end
+
+    def report(name, path, params={}, &block)
+      Request.new(@experiment, @session, :report, name, path, params, nil, block).run
+    end
+
     def debug(data)
       @experiment.write_debug(data)
     end
