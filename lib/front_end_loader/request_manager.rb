@@ -25,7 +25,7 @@ module FrontEndLoader
       Request.new(@experiment, @session, :delete, name, path, params, nil, block).run
     end
 
-        def propfind(name, path, params={}, &block)
+    def propfind(name, path, params={}, &block)
       Request.new(@experiment, @session, :propfind, name, path, params, nil, block).run
     end
 

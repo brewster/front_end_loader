@@ -19,7 +19,7 @@ module FrontEndLoader
 
     def run
       response = nil
-      if [:get, :delete].include?(@method)
+      if [:get, :delete, :propfind, :report].include?(@method)
         response = @experiment.time_call(@name) do
           @session.__send__(@method, "#{@path}?#{@params}", @headers)
         end
